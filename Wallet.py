@@ -4,6 +4,7 @@ from BlockchainUtils import BlockchainUtils
 
 
 class Wallet:
+
     def __init__(self) -> None:
         self.keyPair = RSA.generate(2048)
     
@@ -12,3 +13,12 @@ class Wallet:
         signatureScheme = PKCS1_v1_5.new(self.keyPair)
         signature = signatureScheme.sign(dataHash)
         return signature.hex()
+
+    @staticmethod
+    def isSignatureValid(data, signature, publicKeyString):
+        signature = bytes.fromhex(signature)
+        dataHash = BlockchainUtils.hash(data)
+        publicKeyRSA = RSA.importKey(publicKeyString)
+        signatureScheme = PKCS1_v1_5.new(rsa_key=publicKeyRSA)
+        return signatureScheme.verify(msg_hash=dataHash, signature=signature)
+    
