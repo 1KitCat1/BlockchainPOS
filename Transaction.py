@@ -8,7 +8,9 @@ class Transaction:
         self.amount = amount
         self.transactionType = transactionType
         self.timestamp = time.time()
-        self.signature = ""
     
     def toJSON(self):
         return self.__dict__
+
+    def setSignature(self, signature):
+        self.signature = signature
