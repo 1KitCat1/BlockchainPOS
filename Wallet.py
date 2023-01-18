@@ -20,5 +20,7 @@ class Wallet:
         dataHash = BlockchainUtils.hash(data)
         publicKeyRSA = RSA.importKey(publicKeyString)
         signatureScheme = PKCS1_v1_5.new(rsa_key=publicKeyRSA)
-        return signatureScheme.verify(msg_hash=dataHash, signature=signature)
+        return signatureScheme.verify(dataHash, signature=signature)
     
+    def getPublicKey(self):
+        return self.keyPair.publickey().exportKey().decode('utf-8')
