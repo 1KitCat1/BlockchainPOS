@@ -1,6 +1,7 @@
 import time
 import copy
 import uuid
+from BlockchainUtils import BlockchainUtils
 
 class Transaction:
     def __init__(self, senderPK, receiverPK, amount, transactionType) -> None:
@@ -22,3 +23,9 @@ class Transaction:
         transactionJSON = copy.deepcopy(self.toJSON())
         transactionJSON["signature"] = ""
         return transactionJSON
+    
+    def getHashString(self):
+        return BlockchainUtils.hash(self.toJSON()).hexdigest()
+
+    def isEqual(self, other):
+        return self.getHashString == other.getHashString

@@ -1,6 +1,6 @@
 from Transaction import Transaction
 from Wallet import Wallet
-
+import copy
 
 if __name__ == "__main__":
     transaction = Transaction(senderPK="sender",
@@ -18,4 +18,5 @@ if __name__ == "__main__":
     print(Wallet.isSignatureValid(data=transaction.getPayload(), 
                                   signature=transaction.signature, 
                                   publicKeyString=wallet.getPublicKey()))
+    print(transaction.isEqual(copy.deepcopy(transaction)))
     
