@@ -18,7 +18,7 @@ class Transaction:
     def setSignature(self, signature):
         self.signature = signature
 
-    def payload(self):
+    def getPayload(self):
         transactionJSON = copy.deepcopy(self.toJSON())
         transactionJSON["signature"] = ""
         return transactionJSON

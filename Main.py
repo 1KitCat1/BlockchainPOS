@@ -8,11 +8,14 @@ if __name__ == "__main__":
                               amount=1,
                               transactionType="TRANSFER")
     wallet = Wallet()
-    signature = wallet.sign(transaction.toJSON())
-    transaction.setSignature(signature=signature)
-    # print(wallet.getPublicKey)
+    anotherWallet = Wallet()
+
+    transaction = wallet.createTransaction(receiverPK="receiverPublicKey",
+                                           amount=1, 
+                                           transactionType="TRANSFER")
+
     print(transaction.toJSON())
-    print(Wallet.isSignatureValid(data=transaction.payload(), 
-                                  signature=signature,
+    print(Wallet.isSignatureValid(data=transaction.getPayload(), 
+                                  signature=transaction.signature, 
                                   publicKeyString=wallet.getPublicKey()))
     

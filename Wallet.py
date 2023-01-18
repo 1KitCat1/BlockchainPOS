@@ -1,7 +1,7 @@
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 from BlockchainUtils import BlockchainUtils
-
+from Transaction import Transaction
 
 class Wallet:
 
@@ -24,3 +24,12 @@ class Wallet:
     
     def getPublicKey(self):
         return self.keyPair.publickey().exportKey().decode('utf-8')
+    
+    def createTransaction(self, receiverPK, amount, transactionType):
+        transaction = Transaction(senderPK=self.getPublicKey(),
+                                  receiverPK=receiverPK,
+                                  amount=amount,
+                                  transactionType=transactionType)
+        signature = self.sign(transaction.getPayload())
+        transaction.setSignature(signature)
+        return transaction
