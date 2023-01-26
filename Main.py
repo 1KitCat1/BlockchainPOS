@@ -3,8 +3,10 @@ from Wallet import Wallet
 from Block import Block
 from TransactionPool import TransactionPool
 from Blockchain import Blockchain
+from BlockchainUtils import BlockchainUtils
 import copy
 import pprint
+
 
 if __name__ == "__main__":
     transaction = Transaction(senderPK="sender",
@@ -21,14 +23,19 @@ if __name__ == "__main__":
     pool = TransactionPool()
     pool.addTransaction(transaction)
     # print(len(pool.transactions))
-    block = wallet.createBlock(transactions=pool.transactions,
-                               previousHash="00000",
-                               blockCount=1)
-    pprint.pprint(block.toJSON())
-    print("Is signature valid: ", wallet.isSignatureValid(data=block.payload(), 
-                                                          signature=block.signature,
-                                                          publicKeyString=wallet.getPublicKey()))
-    
     blockchain = Blockchain()
-    blockchain.addBlock(block=block)
+    previousHash = BlockchainUtils.hash(blockchain.blocks[-1].payload()).hexdigest()
+
+    block = wallet.createBlock(transactions=pool.transactions,
+                               previousHash=previousHash,
+                               blockCount=len(blockchain.blocks))
+
+    # pprint.pprint(block.toJSON())
+    # print("Is signature valid: ", wallet.isSignatureValid(data=block.payload(), 
+    #                                                       signature=block.signature,
+    #                                                       publicKeyString=wallet.getPublicKey()))
+    
+    if blockchain.isBlockCountValid(block) and blockchain.isPreviousHashValid(block):
+        blockchain.addBlock(block=block)
+
     pprint.pprint(blockchain.toJSON())

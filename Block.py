@@ -13,6 +13,15 @@ class Block:
         self.timestamp = time.time()
         self.signature = ""
     
+    @staticmethod
+    def getGenesis():
+        genesisBlock = Block(transactions=[],
+                             previousHash="00000000",
+                             forgerPK="00000000",
+                             blockCount=0)
+        genesisBlock.timestamp = 0 
+        return genesisBlock
+
     def toJSON(self):
         data = copy.deepcopy(self.__dict__)
         data["transactions"] = []
