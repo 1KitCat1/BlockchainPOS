@@ -2,6 +2,7 @@ from Transaction import Transaction
 from Wallet import Wallet
 from Block import Block
 from TransactionPool import TransactionPool
+from Blockchain import Blockchain
 import copy
 import pprint
 
@@ -28,3 +29,6 @@ if __name__ == "__main__":
                                                           signature=block.signature,
                                                           publicKeyString=wallet.getPublicKey()))
     
+    blockchain = Blockchain()
+    blockchain.addBlock(block=block)
+    pprint.pprint(blockchain.toJSON())
