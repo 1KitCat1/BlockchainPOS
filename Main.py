@@ -3,6 +3,7 @@ from Wallet import Wallet
 from Block import Block
 from TransactionPool import TransactionPool
 import copy
+import pprint
 
 if __name__ == "__main__":
     transaction = Transaction(senderPK="sender",
@@ -19,9 +20,11 @@ if __name__ == "__main__":
     pool = TransactionPool()
     pool.addTransaction(transaction)
     # print(len(pool.transactions))
-    block = Block(transactions=pool.transactions,
-                  previousHash="00000",
-                  forgerPK="forger",
-                  blockCount=1)
-    print(block.toJSON())
+    block = wallet.createBlock(transactions=pool.transactions,
+                               previousHash="00000",
+                               blockCount=1)
+    pprint.pprint(block.toJSON())
+    print("Is signature valid: ", wallet.isSignatureValid(data=block.payload(), 
+                                                          signature=block.signature,
+                                                          publicKeyString=wallet.getPublicKey()))
     

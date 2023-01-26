@@ -20,5 +20,12 @@ class Block:
             data["transactions"].append(transaction.toJSON())
         return data
 
+    def payload(self):
+        json = copy.deepcopy(self.toJSON())
+        json['signature'] = ''
+        return json
+
+    def sign(self, signature):
+        self.signature = signature
 
     
