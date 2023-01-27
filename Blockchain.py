@@ -2,7 +2,7 @@ from Block import Block
 from BlockchainUtils import BlockchainUtils
 
 
-class Blockchain():
+class Blockchain:
     
     def __init__(self) -> None:
         self.blocks = [Block.getGenesis()]
