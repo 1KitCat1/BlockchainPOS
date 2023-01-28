@@ -3,15 +3,23 @@
 class TransactionPool():
 
     def __init__(self) -> None:
-        self.transactions = []
+        self.transactions = {}
     
     def addTransaction(self, transaction):
-        self.transactions.append(transaction)
+        transactionHash = transaction.getHashString()
+        self.transactions[transactionHash] = transaction
     
     def transactionExists(self, transaction):
-        # TODO: optimize with set
-        transactionHash = transaction.getHash()
-        for poolTansaction in self.transactions:
-            if poolTansaction.getHash() == transactionHash:
-                return True
-        return False
+        transactionHash = transaction.getHashString()
+        return transactionHash in self.transactions
+
+    def getTransactionList(self):
+        transactionList = []
+        for transaction in self.transactions.values():
+            transactionList.append(transaction)
+        return transactionList
+
+    def removeFromPool(self, transactions):
+        for transaction in transactions:
+            self.transactions.pop(transaction.getHashString(), '')
+        

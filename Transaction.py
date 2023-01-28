@@ -8,7 +8,7 @@ class Transaction:
         self.senderPK = senderPK
         self.receiverPK = receiverPK
         self.amount = amount
-        self.transactionType = transactionType
+        self.type = transactionType
         self.nonce = uuid.uuid4().hex
         self.timestamp = time.time()
         self.signature = ""

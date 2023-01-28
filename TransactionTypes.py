@@ -1,5 +1,5 @@
 
 
 class TransactionTypes:
-    EXCHANGE = 'EXCHANGE'
+    TRANSFER = 'TRANSFER'
     FORGE = 'FORGE'

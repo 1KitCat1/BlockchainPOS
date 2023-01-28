@@ -10,6 +10,8 @@ class Blockchain:
         self.accountModel = AccountModel()
     
     def addBlock(self, block):
+        for transaction in block.transactions:
+            self.executeTransaction(transaction=transaction)
         self.blocks.append(block)
     
     def toJSON(self) -> dict:
@@ -37,3 +39,9 @@ class Blockchain:
             if self.isTransactionCovered(transaction):
                 coveredTransactions.append(transaction)
         return coveredTransactions
+
+    def executeTransaction(self, transaction):
+        if transaction.type != TransactionTypes.FORGE:
+            self.accountModel.addBalance(transaction.senderPK, -transaction.amount)
+        self.accountModel.addBalance(transaction.receiverPK, transaction.amount)
+        
