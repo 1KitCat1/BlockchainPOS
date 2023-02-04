@@ -13,6 +13,10 @@ import sys
 
 if __name__ == "__main__":
     node = Node(ip=sys.argv[1], port=int(sys.argv[2]))
+    node.p2pStart()
+
+    if int(sys.argv[2]) == 10002:
+      node.p2pCommunication.connect_with_node(host="localhost", port=10001)
     # alice = Wallet()
     # bob = Wallet()
     # blockchain = Blockchain()
