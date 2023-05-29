@@ -1,0 +1,2 @@
+DEFAULT_NODE_IP = "localhost"
+DEFAULT_NODE_PORT = 10001
