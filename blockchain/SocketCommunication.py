@@ -18,6 +18,6 @@ class SocketCommunication(p2pNode):
         self.send_to_node(n=node, data="Message from main node")
         # return super().outbound_node_connected(node)    
 
-    def node_message(self, node, data):
-        print(data)
+    def node_message(self, connected_node, message):
+        print(message)
         # return super().node_message(node, data)

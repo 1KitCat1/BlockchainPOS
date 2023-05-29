@@ -11,7 +11,9 @@ class Node:
         self.blockchain = Blockchain()
         self.ip = ip
         self.port = port
-        self.p2pCommunication = SocketCommunication(ip, port)
+        self.p2pCommunication = None
     
     def p2pStart(self):
+        self.p2pCommunication =  SocketCommunication(self.ip, self.port)
         self.p2pCommunication.startSocketCommunication()
+        
